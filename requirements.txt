@@ -1,0 +1,7 @@
+google-adk
+litellm              # permite usar Claude (Anthropic) dentro de ADK
+chromadb
+sentence-transformers  # instala torch (en Mac Apple Silicon es la versión CPU)
+python-docx          # leer transcripciones .docx de Teams
+pyyaml
+python-dotenv

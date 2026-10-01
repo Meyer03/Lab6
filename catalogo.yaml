@@ -1,0 +1,43 @@
+# ============================================================
+#  CATÁLOGO DE TRANSCRIPCIONES
+# ============================================================
+# Los nombres de archivo no siempre dicen de qué UN o qué junta son
+# (ej. "REUNIÓN DE GESTIÓN XB + TRANSFER (3).docx"). Aquí se define.
+#
+# ingest.py revisa las reglas EN ORDEN y usa la primera cuyo "patron"
+# aparezca en el nombre del archivo (sin importar mayúsculas).
+# La fecha se detecta sola (nombre del archivo o encabezado); si no,
+# agrega "fecha: AAAA-MM-DD" a una regla específica para ese archivo.
+#
+# Un archivo que no coincide con ninguna regla se OMITE y se avisa.
+
+reglas:
+  # --- Excluidos ---------------------------------------------------
+  - patron: "Reporte Semanal de Indicadores"
+    excluir: true            # copia mal formateada de la KPI del 02/09
+
+  # --- Arranque Operativo -----------------------------------------
+  - patron: "REUNIÓN DE GESTIÓN XB"
+    un: XB
+    junta: arranque_operativo
+  - patron: "Stand Up_Sesión Diaria"
+    un: Dedicados
+    junta: arranque_operativo
+  - patron: "transcripcion_junta_Arranque_2026-09-15"
+    un: XB
+    junta: arranque_operativo
+  - patron: "auditoria Especializados"
+    un: Especializados
+    junta: arranque_operativo
+    fecha: 2026-09-15
+  - patron: "arranque_Dedicados"
+    un: Dedicados
+    junta: arranque_operativo
+
+  # --- KPIs Semanales ---------------------------------------------
+  - patron: "kpis_XB"
+    un: XB
+    junta: kpis_semanales
+  - patron: "kpi_semanal"
+    un: XB
+    junta: kpis_semanales

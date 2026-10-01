@@ -1,0 +1,88 @@
+# ============================================================
+#  GLOSARIO — correcciones del dominio para la limpieza (etapa 3)
+# ============================================================
+# Este archivo es de DATOS: se edita sin tocar código.
+# Después de editarlo: python ingest.py --dry-run   y revisa el resultado.
+# Las entradas con "?" son deducciones que falta confirmar.
+
+# ------------------------------------------------------------
+# 1. Correcciones de transcripción (errores que se repiten)
+#    clave = expresión regular (sin distinguir mayúsculas), valor = reemplazo
+# ------------------------------------------------------------
+correcciones:
+  '\bseguridad veal\b': seguridad vial
+  '\badonas?\b': aduana            # "Adona de Colombia" = Aduana de Colombia (N.L.)
+  '\bwalman\b': Walmart
+  '\bsumestro\b': siniestro
+  '\breflejado\b': refrigerado      # "en reflejado traemos siete unidades"
+  '\bcross[ -]border\b': Crossborder
+  '\bpre[ -]viajes?\b': previaje
+  '\bo k\b': OK
+
+# ------------------------------------------------------------
+# 2. Alias de personas: la misma persona escrita distinto
+#    (Teams usa el nombre de la cuenta; los .txt el nombre hablado)
+#    Antes de buscar aquí, el código ya cambia "Luis.Palacios" → "Luis Palacios"
+#    y quita espacios dobles.
+# ------------------------------------------------------------
+alias_hablantes:
+  Careli: Karely Cortazar
+  Carelli: Karely Cortazar
+  Dulce Cruz: Dulce Wendy Cruz Flores
+  Luis Nájera: Luis Adrian Najera Eguia
+  Esmeralda: Esmeralda Ortiz           # ? en la junta de Dedicados del 17/07
+
+# ------------------------------------------------------------
+# 3. Códigos de Teams: "(TE, QRO, OP)" = empresa, sede, área
+# ------------------------------------------------------------
+sedes:
+  QRO: Querétaro
+  CAL: Calamanda
+  NLD: Nuevo Laredo
+  GDL: Guadalajara
+  CMX: Ciudad de México
+  MTY: Monterrey
+  SLP: San Luis Potosí
+  SAL: Saltillo
+  SJI: San Juan ?                        # ? confirmar
+
+areas:
+  OP: Operaciones
+  OPE: Operaciones
+  EO: Excelencia Operativa
+  MT: Mantenimiento
+  RH: Capital Humano
+  HR: Capital Humano
+  PL: Planeación
+  TR: Transfer
+  TC: Tráfico y Control ?                # ? Jonathan López reporta cumplimiento de viajes
+  COM: Comercial / Servicio al Cliente
+  CM: Comercial / Servicio al Cliente    # ?
+  DG: Dirección de UN                    # Pablo Gálvez, líder de UN
+  COB: Cobranza
+  REF: Refrigerado ?                     # ? es segmento, no área
+  QC: Calidad ?
+  FA: Facturación ?
+  MC: Mesa de Control ?                  # ? Esmeralda Ortiz modera la junta de Dedicados
+  DR: ""                                # ? desconocido
+  SC: ""                                # ? desconocido
+  CER: ""                               # ? desconocido
+
+# Códigos que no son sede ni área (se ignoran)
+ignorar_codigos: [TE]
+
+# ------------------------------------------------------------
+# 4. Ruido: turnos que no aportan nada
+#    Un turno se descarta si TODAS sus palabras están en esta lista
+#    (y no trae números ni responde a una pregunta del turno anterior).
+#    OJO: "yes" y "no" van entre comillas; sin ellas YAML los lee como verdadero/falso.
+# ------------------------------------------------------------
+muletillas_turno:
+  [okay, ok, o, k, "yes", sí, si, "no", gracias, thank, thanks, you, hola, hello, buenos, buenas,
+   buen, días, dias, día, dia, tardes, listo, va, vale, mhm, ajá, aja, eh, em, este, bueno,
+   perfecto, excelente, claro, correcto, órale, orale, a, todos, muchas, muchísimas, equipo,
+   adiós, bye, perdón, ah, oh, ohh, mm, mmm, hmm, sale, de, acuerdo, gracia, igualmente,
+   que, tengan, tenga, qué, tal, pues, totalmente, exacto, así, es]
+
+# Muletillas que se borran DENTRO de un turno (palabra suelta)
+muletillas_dentro: [eh, em, mmm, mhm, ehh]
